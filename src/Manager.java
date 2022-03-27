@@ -32,14 +32,14 @@ public class Manager {
     }
 
     /**
-     * Создание задачи. Oбъект должен передаваться в качестве параметра.
+     * Создание задачи.
      */
     public void saveTask(Task task) {
         allTasks.put(task.getId(), task);
     }
 
     /**
-     * Обновление задачи. Новая версия объекта с верным идентификатором передаются в виде параметра.
+     * Обновление задачи.
      */
     public void updateTask(Task task) {
         if (!allTasks.containsKey(task.getId())) {
@@ -77,7 +77,7 @@ public class Manager {
     }
 
     /**
-     * Создание Эпика. Oбъект должен передаваться в качестве параметра.
+     * Создание Эпика.
      */
     public void saveEpic(Epic epic) {
         allEpics.put(epic.getId(), epic);
@@ -85,7 +85,7 @@ public class Manager {
 
 
     /**
-     * Обновление эпика. Новая версия объекта с верным идентификатором передаются в виде параметра.
+     * Обновление эпика.
      */
     public void updateEpic(Epic epic) {
         if (!allEpics.containsKey(epic.getId())) {
@@ -99,7 +99,7 @@ public class Manager {
      */
     public void deleteEpicByID (int id) {
         Epic epic = allEpics.remove(id);
-        for (SubTask subTask: epic.getSubTask()) {
+        for (SubTask subTask: epic.getSubTasks()) {
             allSubTasks.remove(subTask.getId());
         }
     }
@@ -126,14 +126,14 @@ public class Manager {
     }
 
     /**
-     * Создание подзадачи. Oбъект должен передаваться в качестве параметра.
+     * Создание подзадачи.
      */
     public void saveSubTask(SubTask subTask) {
         allSubTasks.put(subTask.getId(), subTask);
     }
 
     /**
-     * Обновление подзадачи. Новая версия объекта с верным идентификатором передаются в виде параметра.
+     * Обновление подзадачи.
      */
     public void updateSubTask(SubTask subTask) {
         if (!allSubTasks.containsKey(subTask.getId())) {
@@ -156,35 +156,23 @@ public class Manager {
         if (!allEpics.containsKey(epic.getId())) {
             return null;
         }
-        return new ArrayList<>(epic.getSubTask());
+        return new ArrayList<>(epic.getSubTasks());
     }
 
     /**
      * Обновление статуса эпика.
      */
     public String getStatusEpic(Epic epic) {
-        int counterNew = 0;
-        int counterDone = 0;
-        int counterInProgress = 0;
-
-        for(SubTask subTask: epic.getSubTask()) {
-            if (subTask.getStatus().equals(Status.NEW)) {
-                counterNew++;
-            } else if (subTask.getStatus().equals(Status.DONE)) {
-                counterDone++;
-            } else {
-                counterInProgress++;
-            }
-        }
-
-        if (epic.getSubTask().size() == counterNew) {
-            return Status.NEW;
-        } else if (epic.getSubTask().size() == counterDone) {
-            return Status.DONE;
-        }
-        return Status.IN_PROGRESS;
-
+        return epic.getStatus();
     }
+
+    /**
+     * Связывание эпика с сабтаском.
+     */
+    public void linkEpicWithSubtask(Epic epic, SubTask subTask) {
+        epic.addSubTask(subTask);
+    }
+
 }
 
 

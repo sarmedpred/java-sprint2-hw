@@ -38,13 +38,13 @@ public class Main {
         // Создание эпика 1 с двумя подзадачами
         Epic epic1 = new Epic("Эпик_1", "Описание");
         manager.saveEpic(epic1);
-        int epic1Id = epic1.getId();
-        SubTask subTask1 = new SubTask("Подзадача_1", "Описание", epic1Id);
+        SubTask subTask1 = new SubTask("Подзадача_1", "Описание");
         manager.saveSubTask(subTask1);
-        SubTask subTask2 = new SubTask("Подзадача_2", "Описание", epic1Id);
+        manager.linkEpicWithSubtask(epic1, subTask1);
+        SubTask subTask2 = new SubTask("Подзадача_2", "Описание");
         manager.saveSubTask(subTask2);
-        manager.getEpicByID(epic1.getId());
-        final Epic epicCheck1 = manager.getEpicByID(epic1.getId());
+        manager.linkEpicWithSubtask(epic1, subTask2);
+        Epic epicCheck1 = manager.getEpicByID(epic1.getId());
         if (!epicCheck1.equals(epic1)) {
             System.out.println("Ошибка: эпик + " + epic1.getName() + " не найден по идентификатору " + epic1.getId());
         }
@@ -54,11 +54,10 @@ public class Main {
         // Создание эпика 2 с одной подзадачей
         Epic epic2 = new Epic("Эпик_2", "Описание");
         manager.saveEpic(epic2);
-        int epic2Id = epic2.getId();
-        SubTask subTask3 = new SubTask("Подзадача_1", "Описание", epic2Id);
+        SubTask subTask3 = new SubTask("Подзадача_1", "Описание");
         manager.saveSubTask(subTask3);
-        //manager.getEpicByID(epic2.getId());
-        final Epic epicCheck2 = manager.getEpicByID(epic2.getId());
+        manager.linkEpicWithSubtask(epic2, subTask3);
+        Epic epicCheck2 = manager.getEpicByID(epic2.getId());
         if (!epicCheck2.equals(epic2)) {
             System.out.println("Ошибка: эпик + " + epic2.getName() + " не найден по идентификатору " + epic2.getId());
         }

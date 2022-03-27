@@ -21,16 +21,17 @@ public class Task {
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.id = GeneratorID.next();
+        this.id = GeneratorId.next();
         this.status = Status.NEW;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+        if(o == null) return false;
         if (!(o instanceof Task)) return false;
         Task task = (Task) o;
-        return Objects.equals(name, task.name) && Objects.equals(description, task.description) && Objects.equals(id, task.id) && Objects.equals(status, task.status);
+        return Objects.equals(name, task.name) && Objects.equals(description, task.description) && Objects.equals(id, task.id) && Objects.equals(getStatus(), task.getStatus());
     }
 
     @Override

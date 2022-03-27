@@ -5,13 +5,8 @@
 public class SubTask extends Task {
     private int epicId;
 
-    public SubTask(String name, String description, int id, String status) {
-        super(name, description, id, status);
-    }
-
-    public SubTask(String name, String description, int epicId) {
+    public SubTask(String name, String description) {
         super(name, description);
-        this.epicId = epicId;
     }
 
     public int getEpicId() {

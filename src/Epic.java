@@ -1,31 +1,75 @@
 import java.util.ArrayList;
 
+
 /**
  * Эпик (глобальная задача с подзадачами)
  */
 
 public class Epic extends Task {
-    private ArrayList<SubTask> subTask;
+    private ArrayList<SubTask> subTasks = new ArrayList<>();
 
     public Epic(String name, String description) {
         super(name, description);
     }
 
-    public Epic(String name, String description, int id, String status) {
-        super(name, description, id, status);
+    public ArrayList<SubTask> getSubTasks() {
+        return subTasks;
     }
 
-    public Epic(String name, String description, int id, String status, ArrayList<SubTask> subTask) {
-        super(name, description, id, status);
-        this.subTask = subTask;
+    public SubTask addSubTask(SubTask subTask) {
+        if (!subTasks.contains(subTask)) {
+            subTasks.add(subTask);
+            subTask.setEpicId(this.getId());
+            return subTask;
+        }
+        return null;
     }
 
-    public ArrayList<SubTask> getSubTask() {
-        return subTask;
+    /**
+     * Удаление сабтаска из эпика.
+     */
+    public boolean removeSubTask(SubTask subTask) {
+        int removeId = -1;
+        for (int i = 0; i < subTasks.size(); i++) {
+            if (subTasks.get(i).equals(subTask)) {
+                removeId = i;
+                break;
+            }
+        }
+        if (removeId != -1) {
+            subTask.setEpicId(0);
+            subTasks.remove(removeId);
+            return true;
+        }
+        return false;
     }
 
-    public void setSubTask(ArrayList<SubTask> subTask) {
-        this.subTask = subTask;
+    /**
+     * Вычисление статуса эпика.
+     */
+    @Override
+    public String getStatus() {
+        int counterNew = 0;
+        int counterDone = 0;
+        int counterInProgress = 0;
+
+        for(SubTask subTask: this.getSubTasks()) {
+            if (subTask.getStatus().equals(Status.NEW)) {
+                counterNew++;
+            } else if (subTask.getStatus().equals(Status.DONE)) {
+                counterDone++;
+            } else {
+                counterInProgress++;
+            }
+        }
+
+        if (this.getSubTasks().size() == counterNew) {
+            return Status.NEW;
+        } else if (this.getSubTasks().size() == counterDone) {
+            return Status.DONE;
+        }
+        return Status.IN_PROGRESS;
+
     }
 
 }
