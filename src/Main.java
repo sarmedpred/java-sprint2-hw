@@ -57,7 +57,7 @@ public class Main {
         int epic2Id = epic2.getId();
         SubTask subTask3 = new SubTask("Подзадача_1", "Описание", epic2Id);
         manager.saveSubTask(subTask3);
-        manager.getEpicByID(epic2.getId());
+        //manager.getEpicByID(epic2.getId());
         final Epic epicCheck2 = manager.getEpicByID(epic2.getId());
         if (!epicCheck2.equals(epic2)) {
             System.out.println("Ошибка: эпик + " + epic2.getName() + " не найден по идентификатору " + epic2.getId());
