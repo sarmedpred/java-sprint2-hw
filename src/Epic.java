@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 /**
  * Эпик (глобальная задача с подзадачами)
  */
@@ -10,6 +9,7 @@ public class Epic extends Task {
 
     public Epic(String name, String description) {
         super(name, description);
+        subTasks = new ArrayList<>();
     }
 
     public ArrayList<SubTask> getSubTasks() {
