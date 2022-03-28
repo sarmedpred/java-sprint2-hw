@@ -1,3 +1,9 @@
+import model.Epic;
+import model.Status;
+import model.SubTask;
+import model.Task;
+import service.Manager;
+
 public class Main {
     public static void main(String[] args) {
         Manager manager = new Manager();
@@ -73,7 +79,7 @@ public class Main {
 
         // Удаление эпика 2.
         manager.deleteEpicByID(epic2.getId());
-        if (manager.allEpics.containsKey(epic2.getId())) {
+        if (manager.getListOfEpics().contains(epic2)) {
             System.out.println("Ошибка: эпик + " + epic2.getName() + " не удален " + " по идентификатору " + epic2.getId());
         }
         System.out.println(manager.getListOfEpics());
