@@ -50,15 +50,15 @@ public class Epic extends Task {
      * Вычисление статуса эпика.
      */
     @Override
-    public String getStatus() {
+    public Status getStatus() {
         int counterNew = 0;
         int counterDone = 0;
         int counterInProgress = 0;
 
         for(SubTask subTask: this.getSubTasks()) {
-            if (subTask.getStatus().equals(Status.NEW)) {
+            if (Status.NEW == subTask.getStatus()) {
                 counterNew++;
-            } else if (subTask.getStatus().equals(Status.DONE)) {
+            } else if (Status.DONE == subTask.getStatus()) {
                 counterDone++;
             } else {
                 counterInProgress++;
