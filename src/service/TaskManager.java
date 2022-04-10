@@ -107,7 +107,7 @@ public interface TaskManager {
     /**
      * Получение списка всех подзадач определенного эпика.
      */
-    ArrayList<SubTask> getListOfSubTasksIntoEpic(Epic epic);
+    List<SubTask> getListOfSubTasksIntoEpic(Epic epic);
 
     /**
      * Обновление статуса эпика.

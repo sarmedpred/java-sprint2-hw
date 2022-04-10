@@ -6,15 +6,16 @@ import model.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Менеджер задач.
  */
 
 public class InMemoryTaskManager implements TaskManager {
-    HashMap<Integer, Task> allTasks = new HashMap<>();
-    HashMap<Integer, Epic> allEpics = new HashMap<>();
-    HashMap<Integer, SubTask> allSubTasks = new HashMap<>();
+    private Map<Integer, Task> allTasks = new HashMap<>();
+    private Map<Integer, Epic> allEpics = new HashMap<>();
+    private Map<Integer, SubTask> allSubTasks = new HashMap<>();
     private HistoryManager inMemoryHistoryManager;
 
     public InMemoryTaskManager() {
@@ -25,7 +26,7 @@ public class InMemoryTaskManager implements TaskManager {
      * Получение списка всех задач.
      */
     @Override
-    public ArrayList<Task> getOfTasks() {
+    public List<Task> getOfTasks() {
         return new ArrayList<>(allTasks.values());
     }
 
@@ -78,7 +79,7 @@ public class InMemoryTaskManager implements TaskManager {
      * Получение списка всех эпиков.
      */
     @Override
-    public ArrayList<Epic> getOfEpics() {
+    public List<Epic> getOfEpics() {
         return new ArrayList<>(allEpics.values());
     }
 
@@ -134,7 +135,7 @@ public class InMemoryTaskManager implements TaskManager {
      * Получение списка всех подзадач.
      */
     @Override
-    public ArrayList<SubTask> getOfSubTasks() {
+    public List<SubTask> getOfSubTasks() {
         return new ArrayList<>(allSubTasks.values());
     }
 
@@ -187,7 +188,7 @@ public class InMemoryTaskManager implements TaskManager {
      * Получение списка всех подзадач определенного эпика.
      */
     @Override
-    public ArrayList<SubTask> getListOfSubTasksIntoEpic(Epic epic) {
+    public List<SubTask> getListOfSubTasksIntoEpic(Epic epic) {
         if (!allEpics.containsKey(epic.getId())) {
             return null;
         }
