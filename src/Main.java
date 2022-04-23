@@ -92,6 +92,74 @@ public class Main {
         manager.getSubTaskByID(subTask3.getId());
         System.out.println(manager.getHistory());
 
+        //Тестирование после написания менеджера истории
+        // Создание задачи 3.
+        Task task3 = new Task("Тест_3", "Описание");
+        manager.saveTask(task3);
+        Task taskCheck3 = manager.getTaskByID(task3.getId());
+        if (!taskCheck3.equals(task3)) {
+            System.out.println("Ошибка: задача + " + task3.getName() + " не найдена по идентификатору " + task3.getId());
+        }
+        System.out.println(manager.getOfTasks());
+
+        // Создание задачи 4.
+        Task task4 = new Task("Тест_4", "Описание");
+        manager.saveTask(task4);
+        Task taskCheck4 = manager.getTaskByID(task4.getId());
+        if (!taskCheck4.equals(task4)) {
+            System.out.println("Ошибка: задача + " + task4.getName() + " не найдена по идентификатору " + task4.getId());
+        }
+        System.out.println(manager.getOfTasks());
+
+        // Создание эпика 3 с тремя подзадачами
+        Epic epic3 = new Epic("Эпик_3", "Описание");
+        manager.saveEpic(epic3);
+        SubTask subTask4 = new SubTask("Подзадача_4", "Описание");
+        manager.saveSubTask(subTask4);
+        manager.linkEpicWithSubtask(epic3, subTask4);
+        SubTask subTask5 = new SubTask("Подзадача_5", "Описание");
+        manager.saveSubTask(subTask5);
+        manager.linkEpicWithSubtask(epic3, subTask5);
+        SubTask subTask6 = new SubTask("Подзадача_6", "Описание");
+        manager.saveSubTask(subTask6);
+        manager.linkEpicWithSubtask(epic3, subTask6);
+        Epic epicCheck3 = manager.getEpicByID(epic3.getId());
+        if (!epicCheck3.equals(epic3)) {
+            System.out.println("Ошибка: эпик + " + epic3.getName() + " не найден по идентификатору " + epic3.getId());
+        }
+        System.out.println(manager.getOfEpics());
+        System.out.println(manager.getOfSubTasks());
+
+        // Создание эпика без подзадач
+        Epic epic4 = new Epic("Эпик_4", "Описание");
+        manager.saveEpic(epic4);
+        Epic epicCheck4 = manager.getEpicByID(epic4.getId());
+        if (!epicCheck4.equals(epic4)) {
+            System.out.println("Ошибка: эпик + " + epic4.getName() + " не найден по идентификатору " + epic4.getId());
+        }
+        System.out.println(manager.getOfEpics());
+
+        // Запрос созданных задач в разном порядке
+        System.out.println(manager.getTaskByID(task3.getId()));
+        System.out.println(manager.getTaskByID(task4.getId()));
+        System.out.println(manager.getEpicByID(epic3.getId()));
+        System.out.println(manager.getEpicByID(epic4.getId()));
+        System.out.println(manager.getTaskByID(task4.getId()));
+        System.out.println(manager.getEpicByID(epic3.getId()));
+        System.out.println(manager.getEpicByID(epic4.getId()));
+        System.out.println(manager.getTaskByID(task3.getId()));
+
+        // Получение истории просмотров (убедиться, что нет повторов)
+        System.out.println(manager.getHistory());
+
+        // Удаление задачи из истории (проверка, что при печати она не будет выводиться)
+        manager.deleteTaskByID(task3.getId());
+        System.out.println(manager.getOfTasks());
+
+        // Удаление эпика с тремя подзадачами (убедиться, что из истории удалился эпик и его подзадачи)
+        manager.deleteEpicByID(epic3.getId());
+        System.out.println(manager.getHistory());
+
     }
 
 }

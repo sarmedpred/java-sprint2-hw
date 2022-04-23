@@ -21,4 +21,9 @@ public interface HistoryManager {
      * Добавить задачу в историю просмотра.
      */
     void addTaskToHistory(Task task);
+
+    /**
+     * Удалить задачу из истории просмотра.
+     */
+    void removeTaskFromHistory(int id);
 }
