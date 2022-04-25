@@ -125,4 +125,9 @@ public interface TaskManager {
      */
     List<Task> getHistory();
 
+    /**
+     * Линковка наблюдателя истории.
+     */
+    void setHistoryManager(HistoryManager historyManager);
+
 }

@@ -8,7 +8,7 @@ import service.TaskManager;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager manager = Managers.getDefault();
+        TaskManager manager = Managers.get();
 
         // Создание задачи 1.
         Task task1 = new Task("Тест_1", "Описание");

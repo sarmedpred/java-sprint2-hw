@@ -18,10 +18,6 @@ public class InMemoryTaskManager implements TaskManager {
     private Map<Integer, SubTask> allSubTasks = new HashMap<>();
     private HistoryManager inMemoryHistoryManager;
 
-    public InMemoryTaskManager() {
-        this.inMemoryHistoryManager = new InMemoryHistoryManager();
-    }
-
     /**
      * Получение списка всех задач.
      */
@@ -238,6 +234,14 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<Task> getHistory() {
         return this.inMemoryHistoryManager.getHistory();
+    }
+
+    /**
+     * Линковка наблюдателя истории.
+     */
+    @Override
+    public void setHistoryManager(HistoryManager historyManager) {
+        this.inMemoryHistoryManager = new InMemoryHistoryManager();
     }
 
 }
