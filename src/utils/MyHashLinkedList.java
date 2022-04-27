@@ -22,7 +22,7 @@ public class MyHashLinkedList<T extends Task> {
             this.task = task;
         }
 
-        Node(MyHashLinkedList<T>.Node prev, T task, MyHashLinkedList<T>.Node next) {
+        Node(Node prev, T task, Node next) {
             this.prev = prev;
             this.task = task;
             this.next = next;
@@ -31,9 +31,9 @@ public class MyHashLinkedList<T extends Task> {
 
     private Node head;
     private Node tail;
-    Map<Integer, MyHashLinkedList<T>.Node> listOfNodes = new HashMap<>();
+    Map<Integer, Node> listOfNodes = new HashMap<>();
 
-    MyHashLinkedList<T>.Node get(int id) {
+    Node get(int id) {
         return listOfNodes.get(id);
     }
 
@@ -43,8 +43,8 @@ public class MyHashLinkedList<T extends Task> {
     private void removeNode(Node node) {
         if (node == null) return;
         listOfNodes.remove(node.task.getId());
-        MyHashLinkedList<T>.Node prev = node.prev;
-        MyHashLinkedList<T>.Node next = node.next;
+        Node prev = node.prev;
+        Node next = node.next;
         if (node.prev != null) prev.next = next;
         if (node.next != null) next.prev = prev;
         if (head == node) head = node.next;
@@ -52,7 +52,7 @@ public class MyHashLinkedList<T extends Task> {
     }
 
     public void removeTask (T task) {
-        MyHashLinkedList<T>.Node node = get(task.getId());
+        Node node = get(task.getId());
         removeNode(node);
     }
 
@@ -63,9 +63,9 @@ public class MyHashLinkedList<T extends Task> {
     public void linkLast(T task) {
         if (task == null) return;
         removeTask(task);
-        MyHashLinkedList<T>.Node node = new MyHashLinkedList<T>.Node(null, task, null);
+        Node node = new Node(null, task, null);
         listOfNodes.put(task.getId(), node);
-        MyHashLinkedList<T>.Node last = tail;
+        Node last = tail;
         if (tail != null) {
             node.prev = tail;
             tail.next = node;
@@ -79,7 +79,7 @@ public class MyHashLinkedList<T extends Task> {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer("[");
-        MyHashLinkedList<T>.Node node = head;
+        Node node = head;
         while (node != null) {
             sb.append(node.task).append(", ");
             node = node.next;
@@ -93,7 +93,7 @@ public class MyHashLinkedList<T extends Task> {
      */
     public List<T> getTasks() {
         List<T> list = new ArrayList<>();
-        MyHashLinkedList<T>.Node node = head;
+        Node node = head;
         while (node != null) {
             list.add(node.task);
             node = node.next;
