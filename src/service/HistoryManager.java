@@ -25,5 +25,5 @@ public interface HistoryManager {
     /**
      * Удалить задачу из истории просмотра.
      */
-    void removeTaskFromHistory(int id);
+    void removeTaskFromHistory(Task task);
 }

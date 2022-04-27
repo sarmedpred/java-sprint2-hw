@@ -15,8 +15,8 @@ public class MyHashLinkedList<T extends Task> {
 
     class Node {
         T task;
-        MyHashLinkedList<T>.Node next;
-        MyHashLinkedList<T>.Node prev;
+        Node next;
+        Node prev;
 
         Node(T task) {
             this.task = task;
@@ -29,8 +29,8 @@ public class MyHashLinkedList<T extends Task> {
         }
     }
 
-    public MyHashLinkedList<T>.Node head;
-    public MyHashLinkedList<T>.Node tail;
+    private Node head;
+    private Node tail;
     Map<Integer, MyHashLinkedList<T>.Node> listOfNodes = new HashMap<>();
 
     MyHashLinkedList<T>.Node get(int id) {
@@ -40,10 +40,9 @@ public class MyHashLinkedList<T extends Task> {
     /**
      * Удалить Node
      */
-    public void removeNode(int id) {
-        MyHashLinkedList<T>.Node node = get(id);
+    private void removeNode(Node node) {
         if (node == null) return;
-        listOfNodes.remove(id);
+        listOfNodes.remove(node.task.getId());
         MyHashLinkedList<T>.Node prev = node.prev;
         MyHashLinkedList<T>.Node next = node.next;
         if (node.prev != null) prev.next = next;
@@ -52,8 +51,9 @@ public class MyHashLinkedList<T extends Task> {
         if (tail == node) tail = node.prev;
     }
 
-    public void removeNode (T task) {
-        removeNode(task.getId());
+    public void removeTask (T task) {
+        MyHashLinkedList<T>.Node node = get(task.getId());
+        removeNode(node);
     }
 
     /**
@@ -62,7 +62,7 @@ public class MyHashLinkedList<T extends Task> {
 
     public void linkLast(T task) {
         if (task == null) return;
-        removeNode(task);
+        removeTask(task);
         MyHashLinkedList<T>.Node node = new MyHashLinkedList<T>.Node(null, task, null);
         listOfNodes.put(task.getId(), node);
         MyHashLinkedList<T>.Node last = tail;

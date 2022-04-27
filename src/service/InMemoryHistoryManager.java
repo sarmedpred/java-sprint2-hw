@@ -39,7 +39,7 @@ public class InMemoryHistoryManager implements HistoryManager {
      * Удалить задачу из истории просмотра.
      */
     @Override
-    public void removeTaskFromHistory(int id) {
-        history.removeNode(id);
+    public void removeTaskFromHistory(Task task) {
+        history.removeTask(task);
     }
 }
