@@ -18,6 +18,8 @@ public class Managers {
         TaskManager taskManager;
         if (managerType.equals("inMemory")) {
             taskManager = new InMemoryTaskManager();
+        } else if (managerType.equals("FileBacked")){
+            taskManager = new FileBackedTasksManager();
         } else {
             // временно InMemoryTaskManager(), т.к. пока нет второго TaskManager
             taskManager = new InMemoryTaskManager();

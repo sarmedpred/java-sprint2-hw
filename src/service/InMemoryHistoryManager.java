@@ -3,6 +3,7 @@ package service;
 import model.Task;
 import utils.MyHashLinkedList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +13,28 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     private MyHashLinkedList<Task> history = new MyHashLinkedList<>();
 
+    /**
+     * Приведение истории к формату String.
+     */
+
     @Override
     public String toString() {
         return history.toString();
+    }
+
+    /**
+     * Приведение к формату String для CSV.
+     */
+
+    @Override
+    public String toCSVString() {
+        StringBuilder sb = new StringBuilder();
+        for (Task t: getHistory()) {
+            sb.append(t.getId());
+            sb.append(",");
+        }
+        if (sb.length() > 0) sb.setLength(sb.length() - 1);
+        return sb.toString();
     }
 
     /**

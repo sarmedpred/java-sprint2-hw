@@ -14,6 +14,11 @@ public class Epic extends Task {
         subTasks = new ArrayList<>();
     }
 
+    public Epic(String name, String description, int id) {
+        super(name, description, id, Status.NEW);
+        subTasks = new ArrayList<>();
+    }
+
     public ArrayList<SubTask> getSubTasks() {
         return subTasks;
     }
@@ -72,6 +77,17 @@ public class Epic extends Task {
         }
         return Status.IN_PROGRESS;
 
+    }
+
+    @Override
+    public String toCSVString() {
+        return getId() + ",EPIC," + getName() + "," + getStatus() + "," + getDescription();
+    }
+
+    public static Epic fromCSVString(String s) {
+        String[] split = s.split(",");
+        Epic epic = new Epic(split[2], split[4], Integer.parseInt(split[0]));
+        return epic;
     }
 
 }

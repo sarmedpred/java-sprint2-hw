@@ -16,7 +16,45 @@ public class InMemoryTaskManager implements TaskManager {
     private Map<Integer, Task> allTasks = new HashMap<>();
     private Map<Integer, Epic> allEpics = new HashMap<>();
     private Map<Integer, SubTask> allSubTasks = new HashMap<>();
-    private HistoryManager inMemoryHistoryManager;
+    protected HistoryManager inMemoryHistoryManager;
+
+    /**
+     * Сериализация объекта в список строк
+     */
+    @Override
+    public List<String> serialize(){
+        List<String> data = new ArrayList<>();
+        data.add("id,type,name,status,description,epic");
+
+        List<Task> allTasks = getOfTasks();
+        for(Task t: allTasks) {
+            String s = t.toCSVString();
+            data.add(s);
+        }
+
+        List<Epic> allEpics = getOfEpics();
+        for(Epic e: allEpics) {
+            String s = e.toCSVString();
+            data.add(s);
+        }
+
+        List<SubTask> allSubTasks = getOfSubTasks();
+        for(SubTask st: allSubTasks) {
+            String s = st.toCSVString();
+            data.add(s);
+        }
+
+        data.add("");
+
+        data.add(inMemoryHistoryManager.toCSVString());
+        return data;
+    };
+
+    /**
+     * Кастомизация таскменеджера через аргументы командной строки
+     */
+    @Override
+    public void setSettings(String[] string){}
 
     /**
      * Получение списка всех задач.

@@ -15,6 +15,17 @@ import java.util.List;
 public interface TaskManager {
 
     /**
+     * Сериализация объекта в список строк
+     */
+    List<String> serialize();
+
+
+    /**
+     * Кастомизация таскменеджера через аргументы командной строки
+     */
+    void setSettings(String[] string);
+
+    /**
      * Получение списка всех задач.
      */
     List<Task> getOfTasks();

@@ -82,5 +82,16 @@ public class Task {
                 ", status='" + status + '\'' +
                 '}';
     }
+
+    public String toCSVString() {
+        return id + ",TASK," + name + "," + status + "," + description;
+    }
+
+    public static Task fromCSVString(String s) {
+        String[] split = s.split(",");
+        Task task = new Task(split[2], split[4], Integer.parseInt(split[0]), Status.valueOf(split[3]));
+        return task;
+    }
+
 }
 
