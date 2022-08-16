@@ -1,5 +1,7 @@
 package service;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,19 +15,28 @@ import model.TaskType;
  */
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
-    File file;
-    Boolean hasToBeSaved = true;
-    FileBackedTasksManager(String filePath){
+    private File file;
+    private Boolean hasToBeSaved = true;
+
+    public FileBackedTasksManager(String filePath){
         setFile(filePath);
     }
 
-    FileBackedTasksManager(){}
+    public FileBackedTasksManager(){}
 
     /**
      * Установление пути к файлу.
      */
     public void setFile(String filePath) {
         this.file = new File(filePath);
+    }
+
+    /**
+     * Установление пути к файлу.
+     */
+    public void setFile(File file) {
+        this.file = file;
+        System.out.println(file.getPath());
     }
 
     public static void main(String[] args) {
@@ -113,7 +124,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
      */
     @Override
     public void setSettings(String[] args){
-        setFile(args.length == 0 ? "C:\\Users\\HP\\Desktop\\YandexPraktikum\\sprint_6_data.CSV" : args[0]);
+        if (args.length == 0) {
+            URL resource = getClass().getClassLoader().getResource("sprint_6_data.csv");
+            try {setFile(new File(resource.toURI()));}
+            catch (URISyntaxException e) {
+                System.out.println(e);
+            }
+        } else {
+            setFile(args[0]);
+        }
         setHistoryManager(new InMemoryHistoryManager());
         load();
     }

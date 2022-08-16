@@ -7,27 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class MyHashLinkedList<T extends Task> {
 
-    /**
-     * Node.
-     */
 
-    class Node {
-        T task;
-        Node next;
-        Node prev;
-
-        Node(T task) {
-            this.task = task;
-        }
-
-        Node(Node prev, T task, Node next) {
-            this.prev = prev;
-            this.task = task;
-            this.next = next;
-        }
-    }
 
     private Node head;
     private Node tail;
@@ -63,7 +46,7 @@ public class MyHashLinkedList<T extends Task> {
     public void linkLast(T task) {
         if (task == null) return;
         removeTask(task);
-        Node node = new Node(null, task, null);
+        Node node = new Node<>(null, task, null);
         listOfNodes.put(task.getId(), node);
         Node last = tail;
         if (tail != null) {
@@ -95,7 +78,7 @@ public class MyHashLinkedList<T extends Task> {
         List<T> list = new ArrayList<>();
         Node node = head;
         while (node != null) {
-            list.add(node.task);
+            list.add((T) node.task);
             node = node.next;
         }
         return list;
